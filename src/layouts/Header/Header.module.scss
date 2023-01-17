@@ -1,0 +1,28 @@
+:root{
+    --gap: 1em;
+    --index: calc(1vw + 1vh);
+    --color-dark: #000;
+}
+.header{
+    border-bottom: 1px solid #fff; 
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.inner{
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    color: #fff;
+    font-size: calc(var(--index) * 1.1);
+    text-transform: none;
+}
+.logo:hover{
+    color: #8300cc;
+}
+.item{
+}

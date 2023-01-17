@@ -1,0 +1,18 @@
+:root{
+    --gap: 1em;
+    --index: calc(1vw + 1vh);
+    --color-dark: #000;
+}
+.button{
+    display: inline-block;
+    padding: 8px 10px;
+    font-size: calc(var(--index) * .9);
+    background-color: #fff;
+    color: var(--color-dark);
+    border-radius: 8px;
+    margin-right: 10px;
+}
+.button:hover{
+    box-shadow: 5px 3px 3px #8300cc;
+    color: #8300cc;
+}
