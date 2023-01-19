@@ -4,25 +4,26 @@
     --color-dark: #000;
 }
 .header{
-    border-bottom: 1px solid #fff; 
+    background-color: #fff;
+    border-top: 4px solid #000; 
 }
 .container{
     max-width: 1200px;
     margin: 0 auto;
 }
 .inner{
-    height: 60px;
+    height: 55px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .logo{
-    color: #fff;
+    color: #000;
+    font-weight: 600;
     font-size: calc(var(--index) * 1.1);
     text-transform: none;
+    cursor: pointer;
 }
 .logo:hover{
     color: #8300cc;
-}
-.item{
 }

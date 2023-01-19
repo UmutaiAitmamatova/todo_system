@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Button } from '../../components';
 import classes from './Header.module.scss';
 
@@ -7,10 +8,10 @@ const Header = () => {
         <div className={classes.header}>
             <div className={classes.container}>
                 <div className={classes.inner}>
-                    <div className={classes.logo}>CRYXXEN</div>
+                    <Link to='/'><div className={classes.logo}>CRYXXEN</div></Link>
                     <div className={classes.item}>
-                        <Button/>
-                        <Button/>
+                        <Link to='/admin'><Button title="admin"/></Link>
+                        <Button title="Log out"/>
                     </div>
                 </div>
             </div>

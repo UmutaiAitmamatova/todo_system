@@ -3,8 +3,12 @@ import classes from './Home.module.scss'
 
 const Home = () => {
   return (
-    <div>
-        hello
+    <div className={classes.home}>
+      <div className={classes.container}>
+        <div className={classes.block}>
+          
+        </div>
+      </div>
     </div>
   )
 }

@@ -3,7 +3,13 @@ import classes from './Admin.module.scss'
 
 const Admin = () => {
   return (
-    <div>Admin</div>
+    <div className={classes.admin}>
+      <div className={classes.container}>
+        <div className={classes.inner}>
+
+        </div>
+      </div>
+    </div>
   )
 }
 
