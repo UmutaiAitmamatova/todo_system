@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
@@ -10,25 +10,12 @@ const SignUp = React.lazy(() => import("../pages/singUp"));
 const SignIn = React.lazy(() => import("../pages/signIn")); 
 
 const Router = () => {
+    const [state, setstate] = useState({ redirect: false});
     return (
         <>
-            <Header/>
-            <Routes>
-                <Route path="/" element={
-                    <React.Suspense fallback={<>Loading...</>}>
-                        <Home />
-                    </React.Suspense>}
-                    exact/>
-            </Routes>
-            
-            <Routes>
-                <Route path="/admin" element={
-                    <React.Suspense fallback={<>Loading...</>}>
-                        <Admin />
-                    </React.Suspense>}
-                    exact/>
-            </Routes>
 
+            <Header/>
+            
             <Routes>
                 <Route path="/signIn" element={
                     <React.Suspense fallback={<>Loading...</>}>
@@ -41,6 +28,22 @@ const Router = () => {
                 <Route path="/signUp" element={
                     <React.Suspense fallback={<>Loading...</>}>
                         <SignUp />
+                    </React.Suspense>}
+                    exact/>
+            </Routes>
+
+            <Routes>
+                <Route path="/" element={
+                    <React.Suspense fallback={<>Loading...</>}>
+                        <Home />
+                    </React.Suspense>}
+                    exact/>
+            </Routes>
+            
+            <Routes>
+                <Route path="/admin" element={
+                    <React.Suspense fallback={<>Loading...</>}>
+                        <Admin />
                     </React.Suspense>}
                     exact/>
             </Routes>

@@ -1,6 +1,6 @@
 export const ModalFormConfigs = () => {
     const registerOptions = {
-        userName: {
+        username: {
             required: "Name is required",
             minLength: {
                 value: 2,

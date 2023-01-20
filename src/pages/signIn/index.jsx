@@ -4,11 +4,12 @@ import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+
 
 const SignIn = () => {
   const [user, setUser] = useState({
-    userName: '',
-    email: '',
+    username: '',
     password: '',
   });
   const {registerOptions} = ModalFormConfigs();
@@ -27,18 +28,31 @@ const SignIn = () => {
   const onChangeInputs = (key, value) => {
     handleChangeStudObj(key, value)
 };
+
+const handleApi = async () => {
+  axios.post('http://todolistapi.pythonanywhere.com/api/token/', {
+    username: user.username,
+    password: user.password,
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
   return (
     <div className={classes.sign_in}>
       <div className={classes.block}>
       <h2 className={classes.title}>Sign In</h2>
-      <form onSubmit={console.log('sign In')}>
+      <form onSubmit={handleSubmit(handleApi, handleError)}>
       <div>
           <Input
             label={"userName"}
-            name={"userName"}
+            name={"username"}
             type={"string"}
-            onChange={(e) => onChangeInputs('userName', e.target.value)}
-            value={user?.userName || ""}
+            onChange={(e) => onChangeInputs('username', e.target.value)}
+            value={user?.username || ""}
             errors={errors}
             register={register}
             options={registerOptions}
