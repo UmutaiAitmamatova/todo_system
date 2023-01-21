@@ -6,8 +6,11 @@ import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
 import { authUsers } from '../../components/core/api';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: '',
     email: '',
@@ -43,6 +46,14 @@ const handleApi = async () => {
   .catch(err => {
     console.log(err);
   })
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'you have successfully registered',
+    showConfirmButton: false,
+    timer: 1500
+}).then(() => navigate('/')) 
+  // console.log('SignUp');
 }
 
   return (

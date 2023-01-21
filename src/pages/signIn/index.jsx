@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom'
 import classes from './SignIn.module.scss'
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -40,6 +43,14 @@ const handleApi = async () => {
   .catch(err => {
     console.log(err);
   })
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Successful authorization',
+    showConfirmButton: false,
+    timer: 1500
+}).then(() => navigate('/')) 
+  // console.log('SignIn');
 }
   return (
     <div className={classes.sign_in}>
