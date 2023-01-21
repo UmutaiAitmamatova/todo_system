@@ -3,6 +3,19 @@
     color: #fff;
 }
 .conteiner{
-    max-width: 1200px;
+    max-width: 60%;
     margin: 0 auto;
 }
+.inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 15px;
+}
+.inner button{
+    width: 40%;
+    margin: 0 auto;
+    background-color: #fff;
+    color: #000;
+    border: none;
+} 

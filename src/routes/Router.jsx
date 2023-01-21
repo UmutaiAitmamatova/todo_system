@@ -2,7 +2,6 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
-// import { Home, Admin, SignUp, SignIn } from "../pages";
 
 const Home = React.lazy(() => import("../pages/home"));
 const Admin = React.lazy(() => import("../pages/admin")); 

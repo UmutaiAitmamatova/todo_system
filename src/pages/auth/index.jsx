@@ -1,6 +1,6 @@
 import React from 'react'
-import SignIn from '../../components/signIn'
-import SignUp from '../../components/singUp'
+import SignIn from '../../components/SignIn'
+import SignUp from '../../components/SingUp'
 
 const Auth = () => {
 return (
