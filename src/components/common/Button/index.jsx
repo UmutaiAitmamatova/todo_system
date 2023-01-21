@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './Button.module.scss';
 
-const Button = ({ title, onSubmit }) => {
+const Button = ({ title, onSubmit, onClick }) => {
     return (
-        <button onSubmit={onSubmit} className={classes.button}>{title}</button>
+        <button onClick={onClick} onSubmit={onSubmit} className={classes.button}>{title}</button>
     )
 }
 

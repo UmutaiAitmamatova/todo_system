@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
-import classes from './SignUp.module.scss'
-import Input from "../../components/common/Input";
-import Button from "../../components/common/Button";
+import { Link, useNavigate } from 'react-router-dom'
+import classes from './SignIn.module.scss'
+import Input from "../common/Input";
+import Button from "../common/Button";
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
-import { authUsers } from '../../components/core/api';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
+import SetCookie from '../core/hooks/setCookie';
+import GetCookie from '../core/hooks/getCookie';
+import RemoveCookie from '../core/hooks/RemoveCookie';
 
-const SignUp = () => {
+
+const SignIn = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: '',
-    email: '',
     password: '',
   });
-
   const {registerOptions} = ModalFormConfigs();
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -24,23 +25,24 @@ const SignUp = () => {
   });
   const handleError = (errors) => { console.log(errors); };
 
-  const handleChangeUser = (key, value) => {
+  const handleChangeStudObj = (key, value) => {
     setUser(old => ({
       ...old,
       [key]: value
     }))
   };
   const onChangeInputs = (key, value) => {
-    handleChangeUser(key, value)
+    handleChangeStudObj(key, value)
 };
 
 const handleApi = async () => {
-  axios.post('http://todolistapi.pythonanywhere.com/api/users/', {
+  axios.post('http://todolistapi.pythonanywhere.com/api/token/', {
     username: user.username,
-    email: user.email,
     password: user.password,
   })
   .then(res => {
+    RemoveCookie('usrin')
+    SetCookie('usrin', JSON.stringify(res.data));
     console.log(res.data);
   })
   .catch(err => {
@@ -49,38 +51,24 @@ const handleApi = async () => {
   Swal.fire({
     position: 'center',
     icon: 'success',
-    title: 'you have successfully registered',
+    title: 'Successful authorization',
     showConfirmButton: false,
     timer: 1500
 }).then(() => navigate('/')) 
-  // console.log('SignUp');
+  // console.log('SignIn');
 }
-
   return (
-    <div className={classes.sign_up}>
-      
+    <div className={classes.sign_in}>
       <div className={classes.block}>
-        <h2 className={classes.title}>Sign Up</h2>
-        <form onSubmit={handleSubmit(handleApi, handleError)}>
-          <div>
+      <h2 className={classes.title}>Sign In</h2>
+      <form onSubmit={handleSubmit(handleApi, handleError)}>
+      <div>
           <Input
             label={"userName"}
             name={"username"}
             type={"string"}
             onChange={(e) => onChangeInputs('username', e.target.value)}
             value={user?.username || ""}
-            errors={errors}
-            register={register}
-            options={registerOptions}
-          />
-          </div>
-          <div>
-          <Input
-            label={"Email"}
-            name={"email"}
-            type={"email"}
-            onChange={(e) => onChangeInputs('email', e.target.value)}
-            value={user?.email || ""}
             errors={errors}
             register={register}
             options={registerOptions}
@@ -99,11 +87,12 @@ const handleApi = async () => {
           />
           </div>
           <Button type="Submit" title="Submit"/>
-        </form>
+      </form>
       </div>
-      
+      {/* <Link to="/SignUp"><div>Sign Up</div></Link> */}
+
     </div>
   )
 }
 
-export default SignUp;
+export default SignIn;

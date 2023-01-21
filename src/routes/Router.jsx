@@ -6,15 +6,14 @@ import Header from "../layouts/Header";
 
 const Home = React.lazy(() => import("../pages/home"));
 const Admin = React.lazy(() => import("../pages/admin")); 
-const SignUp = React.lazy(() => import("../pages/singUp")); 
-const SignIn = React.lazy(() => import("../pages/signIn")); 
+const Auth = React.lazy(() => import("../pages/auth")); 
 
 const Router = () => {
     const locat = useLocation();
     const [state, setstate] = useState(false);
 
     useEffect(() => {
-        if (locat.pathname === "/signUp" || locat.pathname === "/signIn") {
+        if (locat.pathname === "/auth") {
             setstate(true);
         } else {
             setstate(false);
@@ -24,17 +23,11 @@ const Router = () => {
     return (
         <>
             {!state && <Header/>}
+
             <Routes>
-
-                <Route path="signIn" element={
+                <Route path="auth" element={
                     <React.Suspense fallback={<>Loading...</>}>
-                        <SignIn />
-                    </React.Suspense>}
-                exact/>
-
-                <Route path="signUp" element={
-                    <React.Suspense fallback={<>Loading...</>}>
-                        <SignUp />
+                        <Auth />
                     </React.Suspense>}
                 exact/>
 
