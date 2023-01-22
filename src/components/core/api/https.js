@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 // const hostURL = "http://todolistapi.pythonanywhere.com";
 // const apiURL = `/api`;
 // const version = ``;
@@ -14,3 +14,10 @@
 
 // export default http;
 // export { http, hostURL, baseURL };
+
+export default axios.create({
+    baseURL: "http://todolistapi.pythonanywhere.com/api",
+    headers: {
+    "Content-type": "application/json"
+    }
+});

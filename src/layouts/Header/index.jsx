@@ -11,7 +11,7 @@ const Header = () => {
         // RemoveCookie('usrin')
         console.log('log out');
         navigate('/auth')
-        window.location.reload();
+        // window.location.reload();
     }
     return (
         <div className={classes.header}>

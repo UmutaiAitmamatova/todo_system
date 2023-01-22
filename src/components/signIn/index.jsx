@@ -41,8 +41,6 @@ const handleApi = async () => {
     password: user.password,
   })
   .then(res => {
-    RemoveCookie('usrin')
-    SetCookie('usrin', JSON.stringify(res.data));
     console.log(res.data);
   })
   .catch(err => {
