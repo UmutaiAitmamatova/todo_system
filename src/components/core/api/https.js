@@ -1,23 +1,15 @@
 import axios from "axios";
-// const hostURL = "http://todolistapi.pythonanywhere.com";
-// const apiURL = `/api`;
-// const version = ``;
-// const baseURL = `${hostURL}${apiURL}${version}`;
 
-// let http = axios.create({
-//   baseURL,
-//   timeout: 30000,
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
+const accessToken = localStorage.getItem('accessToken');
 
-// export default http;
-// export { http, hostURL, baseURL };
+// let header = { 'Authorization': `Bearer ${accessToken}` };
+axios.defaults.headers.common = {'Authorization': `Bearer ${accessToken}`}
 
 export default axios.create({
     baseURL: "http://todolistapi.pythonanywhere.com/api",
     headers: {
-    "Content-type": "application/json"
+    "Content-type": "application/json",
+    Authorization: accessToken ? `Bearer ${accessToken}` : '',
     }
 });
+

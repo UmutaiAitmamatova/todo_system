@@ -5,29 +5,22 @@ import Input from '../common/Input'
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
 import Button from '../common/Button';
+import TutorialDataService from '../core/api'
 
-const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueTitle, saveTutorial,valueData }) => {
-    // const [tasks, setTasks] = useState({
-    //     title: '',
-    //     textarea: ''
-    // });
+const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueTitle, saveTutorial,valueData, getTodo }) => {
 
     const { registerOptions } = ModalFormConfigs();
 
-    const { register, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onBlur'
     });
-    // const handleError = (errors) => { console.log(errors); };
 
-    // const handleChangeStudObj = (key, value) => {
-    //     setTasks(old => ({
-    //         ...old,
-    //         [key]: value
-    //     }))
-    // };
-    // const onChangeInputs = (key, value) => {
-    //     handleChangeStudObj(key, value)
-    // };
+
+    const handlePostTodo = (data) => {
+        TutorialDataService.createTodo(data, getTodo).then(() => {
+        })
+    }
+    
     return (
         <div className={classes.modal}>
             <form>
@@ -75,7 +68,7 @@ const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueT
                     />
                 </div>
                 
-                <Button onClick={saveTutorial(console.log('hell'))} title="Submit"/>
+                <Button onSubmit={handlePostTodo} title="Submit"/>
             </form>
         </div>
     );

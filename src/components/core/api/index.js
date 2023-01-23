@@ -1,15 +1,17 @@
 import axios from "axios";
 import http from "./https";
 
-// let header = { 'Authorization': `Bearer ${accessToken}` }
+const logOut = (refresh) => {
+  return http.post('/token/refresh/', {refresh})
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
 
-
-// getToken(name, password) {
-//     return instance.post('token/', { username: name, password: password })
-// }
-
-
-const getAll = () => {
+const getAllTodo = () => {
     return http.get("/todo/", {})
         .then(res => {
             console.log(res.data);
@@ -19,7 +21,7 @@ const getAll = () => {
         })
 };
   
-  const get = id => {
+  const getTodo = id => {
     return http.get(`/todo/${id}`)
     .then(res => {
         console.log(res.data);
@@ -29,7 +31,7 @@ const getAll = () => {
     })
   };
   
-  const create = data => {
+  const createTodo = data => {
     return http.post("/todo/", data)
     .then(res => {
         console.log(res.data);
@@ -39,15 +41,15 @@ const getAll = () => {
     })
   };
   
-  const update = (id, data) => {
+  const updateTodo = (id, data) => {
     return http.put(`/todo/${id}`, data);
   };
   
-  const remove = id => {
+  const removeTodo = id => {
     return http.delete(`/todo/${id}`);
   };
   
-  const removeAll = () => {
+  const removeAllTodo = () => {
     return http.delete(`/todo`);
   };
   
@@ -56,12 +58,13 @@ const getAll = () => {
   };
   
   const TutorialService = {
-    getAll,
-    get,
-    create,
-    update,
-    remove,
-    removeAll,
+    logOut,
+    getAllTodo,
+    getTodo,
+    createTodo,
+    updateTodo,
+    removeTodo,
+    removeAllTodo,
     findByTitle
   };
   

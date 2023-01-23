@@ -1,0 +1,33 @@
+:root{
+    --gap: 1em;
+    --index: calc(1vw + 1vh);
+    --color-dark: #000;
+}
+.todo_item{
+    width: 75%;
+    margin: 15px auto;
+    background-color: #fff;
+    padding: 10px;
+    color: #000;
+}
+.top{
+    display: flex;
+    justify-content: space-between;
+}
+.title{
+    font-size: calc(var(--index) * 1.3);
+}
+.btns{
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    font-size: calc(var(--index) * 1.5);
+}
+span{
+    padding-bottom: 15px;
+    font-weight: 700;
+    color: rgb(45, 44, 44);
+}
+.description{
+    font-size: calc(var(--index) * 1);
+}

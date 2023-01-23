@@ -2,13 +2,17 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components';
 import classes from './Header.module.scss';
+import TutorialService from '../../components/core/api';
 
 
 const Header = () => {
     const navigate = useNavigate();
+    
 
     const logOut = () => {
-        // RemoveCookie('usrin')
+        localStorage.removeItem('accessToken')
+        const refresh = localStorage.removeItem('refreshToken')
+        TutorialService.logOut(refresh)
         console.log('log out');
         navigate('/auth')
         // window.location.reload();

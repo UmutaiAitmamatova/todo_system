@@ -3,9 +3,18 @@ import classes from './Admin.module.scss'
 import Button from '../../components/common/Button'
 import ModalForm from '../../components/ModalForm';
 import TutorialDataService from '../../components/core/api'
+import TodoBlock from '../../components/TodoBlock';
 
 const Admin = () => {
   const [activeModal, setActiveModal] = useState(true);
+  const [tasks, setTasks] = useState(false);
+  const [todo, setTodo] = useState([]);
+
+  const getTodos = async () => {
+    await TutorialDataService.getAllTodo()
+        .then(res => setTodo(res))
+  }
+
   const onClickBtn = () => {
     setActiveModal(false)
   }
@@ -18,7 +27,6 @@ const Admin = () => {
     published: false
   };
   const [tutorial, setTutorial] = useState(initialTutorialState);
-  // const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -58,6 +66,9 @@ const Admin = () => {
           <Button onClick={onClickBtn} title="Add todo" />
           <div>{!activeModal &&
             <ModalForm
+              tasks={tasks}
+              setTasks={setTasks}
+              getTodos={getTodos}
               saveTutorial={saveTutorial}
               valueDescription={tutorial.description}
               handleInputChange={handleInputChange}
@@ -68,8 +79,9 @@ const Admin = () => {
           }
           </div>
 
-          {/* <div>{tutorial.title}</div>
-          <div>{tutorial.description}</div> */}
+          <div className={classes.content}>
+            <TodoBlock setTasks={setTasks} getTodos={getTodos} todo={todo}/>
+          </div>
 
         </div>
       </div>
