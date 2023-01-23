@@ -18,12 +18,13 @@ const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueT
 
     const handlePostTodo = (data) => {
         TutorialDataService.createTodo(data, getTodo).then(() => {
+            console.log('data', data);
         })
     }
-    
+
     return (
         <div className={classes.modal}>
-            <form>
+            <form onSubmit={handleSubmit(handlePostTodo)}>
                 <div className={classes.title}>
                     <h3>Tasks</h3>
                     <AiFillCloseCircle onClick={() => setActiveModal(true)} />
@@ -59,7 +60,7 @@ const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueT
                     <Input
                         label={"Data"}
                         name={"data"}
-                        type={"text"}
+                        type={"data"}
                         onChange={handleInputChange}
                         value={valueData}
                         errors={errors}
@@ -68,7 +69,7 @@ const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueT
                     />
                 </div>
                 
-                <Button onSubmit={handlePostTodo} title="Submit"/>
+                <Button type='submit' title="Submit"/>
             </form>
         </div>
     );

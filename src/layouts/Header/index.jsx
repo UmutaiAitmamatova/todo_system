@@ -11,8 +11,9 @@ const Header = () => {
 
     const logOut = () => {
         localStorage.removeItem('accessToken')
-        const refresh = localStorage.removeItem('refreshToken')
-        TutorialService.logOut(refresh)
+        // const refresh = localStorage.removeItem('refreshToken')
+        // TutorialService.logOut(refresh)
+        localStorage.clear()
         console.log('log out');
         navigate('/auth')
         // window.location.reload();

@@ -1,18 +1,23 @@
 import axios from "axios";
 import http from "./https";
 
-const logOut = (refresh) => {
+const refresh = localStorage.getItem('refreshToken')
+const logOut = () => {
   return http.post('/token/refresh/', {refresh})
     .then(res => {
       console.log(res.data);
+      localStorage.removeItem('refreshToken')
     })
     .catch(err => {
       console.log(err);
     })
 }
 
+
+let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
+
 const getAllTodo = () => {
-    return http.get("/todo/", {})
+    return http.get("/todo/",  { headers: header })
         .then(res => {
             console.log(res.data);
         })
@@ -20,6 +25,17 @@ const getAllTodo = () => {
             console.log(err);
         })
 };
+
+
+// const getAllTodo = () => {
+//     return http.get("/todo/",  {headers: header})
+//         .then(res => {
+//             console.log(res.data);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         })
+// };
   
   const getTodo = id => {
     return http.get(`/todo/${id}`)
@@ -32,7 +48,7 @@ const getAllTodo = () => {
   };
   
   const createTodo = data => {
-    return http.post("/todo/", data)
+    return http.post("/todo/", data, {headers: header})
     .then(res => {
         console.log(res.data);
     })

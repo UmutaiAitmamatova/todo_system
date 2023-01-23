@@ -44,6 +44,7 @@ const handleApi = async () => {
     password: user.password,
   })
   .then(res => {
+    localStorage.setItem('accessToken', res.data.access)
     console.log(res.data);
   })
   .catch(err => {

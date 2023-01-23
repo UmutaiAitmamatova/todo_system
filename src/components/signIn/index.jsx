@@ -7,9 +7,6 @@ import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import SetCookie from '../core/hooks/setCookie';
-import GetCookie from '../core/hooks/getCookie';
-import RemoveCookie from '../core/hooks/RemoveCookie';
 
 
 const SignIn = () => {
@@ -44,7 +41,7 @@ const handleApi = async () => {
     console.log(res.data);
     localStorage.setItem('accessToken', res.data.access)
     localStorage.setItem('refreshToken', res.data.refresh)
-
+    console.log('refresh', localStorage.setItem('refreshToken', res.data.refresh));
   })
   .catch(err => {
     console.log(err);

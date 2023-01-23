@@ -11,9 +11,10 @@ const Admin = () => {
   const [todo, setTodo] = useState([]);
 
   const getTodos = async () => {
-    await TutorialDataService.getAllTodo()
+    await TutorialDataService.getTodo()
         .then(res => setTodo(res))
   }
+  console.log('getTodos', getTodos);
 
   const onClickBtn = () => {
     setActiveModal(false)
@@ -55,9 +56,7 @@ const Admin = () => {
       });
   };
 
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
-  };
+
 
   return (
     <div className={classes.admin}>
