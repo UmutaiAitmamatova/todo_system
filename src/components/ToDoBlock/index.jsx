@@ -3,7 +3,7 @@ import TodoItem from '../TodoItem';
 import classes from './ToDoBlock.module.scss';
 
 const TodoBlock = ({todo, getTodos, setTasks}) => {
-    console.log('todo', todo);
+    // console.log('todo', todo);
     useEffect(() => {
         getTodos()
     }, [])
@@ -11,7 +11,7 @@ const TodoBlock = ({todo, getTodos, setTasks}) => {
     return (
         <div className={classes.todo_block}>
             {todo && todo.length > 0 ? todo.map((data, key) => {
-                console.log('DATA', data);
+                // console.log('DATA', data);
                 return <TodoItem getTodos={getTodos} setTasks={setTasks} data={data} key={key}/> 
             })
             : <p>not todo</p>}

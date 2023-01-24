@@ -51,6 +51,7 @@ const getAllTodo = () => {
     return http.post("/todo/", data, {headers: header})
     .then(res => {
         console.log(res.data);
+        console.log('res', header);
     })
     .catch(err => {
         console.log(err);

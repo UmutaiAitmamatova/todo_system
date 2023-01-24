@@ -4,13 +4,9 @@ import Input from "../common/Input";
 import Button from "../common/Button";
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
-import { authUsers } from '../core/api';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
-import SetCookie from '../core/hooks/setCookie';
-import GetCookie from '../core/hooks/getCookie';
-import RemoveCookie from '../core/hooks/RemoveCookie';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -37,6 +33,8 @@ const SignUp = () => {
     handleChangeUser(key, value)
 };
 
+
+
 const handleApi = async () => {
   axios.post('http://todolistapi.pythonanywhere.com/api/users/', {
     username: user.username,
@@ -45,6 +43,7 @@ const handleApi = async () => {
   })
   .then(res => {
     localStorage.setItem('accessToken', res.data.access)
+    localStorage.setItem('userId', res.data.id)
     console.log(res.data);
   })
   .catch(err => {

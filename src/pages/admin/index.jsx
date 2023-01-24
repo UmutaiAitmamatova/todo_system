@@ -10,54 +10,26 @@ const Admin = () => {
   const [tasks, setTasks] = useState(false);
   const [todo, setTodo] = useState([]);
 
+  // console.log(localStorage.getItem('userId'));
+
   const getTodos = async () => {
     await TutorialDataService.getAllTodo()
-        .then(res => setTodo(res))
+        .then(res => setTodo(res.data))
         .catch(err => {
           console.log(err);
         })
   }
-  console.log('todo', todo);
+  // console.log('todo', todo);
 
   const onClickBtn = () => {
     setActiveModal(false)
   }
 
-  const initialTutorialState = {
-    id: null,
-    title: "",
-    description: "",
-    data: "",
-    published: false
-  };
-  const [tutorial, setTutorial] = useState(initialTutorialState);
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setTutorial({ ...tutorial, [name]: value });
-  };
-
-  const saveTutorial = () => {
-    var data = {
-      title: tutorial.title,
-      description: tutorial.description,
-      data: tutorial.data
-    };
-
-    TutorialDataService.create(data)
-      .then(response => {
-        setTutorial({
-          id: response.data.id,
-          title: response.data.title,
-          description: response.data.description,
-          published: response.data.published
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  // const handleInputChange = event => {
+  //   const { name, value } = event.target;
+  //   setTodo({ ...todo, [name]: value });
+  // };
 
 
 
@@ -71,11 +43,7 @@ const Admin = () => {
               tasks={tasks}
               setTasks={setTasks}
               getTodos={getTodos}
-              saveTutorial={saveTutorial}
-              valueDescription={tutorial.description}
-              handleInputChange={handleInputChange}
-              valueTitle={tutorial.title}
-              valueData={tutorial.data}
+              // handleInputChange={handleInputChange}
               setActiveModal={setActiveModal}
             />
           }

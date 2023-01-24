@@ -4,7 +4,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 
 const TodoItem = ({getTodos, setTasks, data, key}) => {
-    console.log('DATA', data);
+    // console.log('DATA', data);
     
     return (
         <div className={classes.todo_item}>
