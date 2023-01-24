@@ -13,11 +13,32 @@ const logOut = () => {
     })
 }
 
+// getTodo(id) {
+//   return instance.get(`todo/${id}/`, { headers: header })
+//       .then(res => res.data).catch(res => {
+//           if (res.response.status === 401) {
+//               return handleAuthError(this.getTodo, id)
+//           }
+//       })
+// },
+
+const getUserInfo = async () => {
+  http.get('/users/get_userinfo/', { headers: header })
+    .then(res => {
+      localStorage.setItem('userId', res.data.id)
+      console.log('', res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    
+}
+
 
 let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
 
-const getAllTodo = () => {
-    return http.get("/todo/",  { headers: header })
+const getAllTodo = async () => {
+    return await http.get("/todo/",  { headers: header })
         .then(res => {
             console.log(res.data);
         })
@@ -36,6 +57,8 @@ const getAllTodo = () => {
 //             console.log(err);
 //         })
 // };
+
+
   
   const getTodo = id => {
     return http.get(`/todo/${id}`)
@@ -58,9 +81,23 @@ const getAllTodo = () => {
     })
   };
   
-  const updateTodo = (id, data) => {
-    return http.put(`/todo/${id}`, data);
-  };
+
+  
+const editTodo = async (id, data) => {
+  return await http.patch(`/todo/${id}`, data, { headers: header })
+    .then(res => {
+      console.log(res.data);
+      console.log('res', header);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    // try {
+    //   const {data} = await http.put(`/todo/${id}`, editElement, { headers: header })
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
+};
   
   const removeTodo = id => {
     return http.delete(`/todo/${id}`);
@@ -79,10 +116,11 @@ const getAllTodo = () => {
     getAllTodo,
     getTodo,
     createTodo,
-    updateTodo,
+    editTodo,
     removeTodo,
     removeAllTodo,
-    findByTitle
+    findByTitle,
+    getUserInfo
   };
   
   export default TutorialService;

@@ -5,59 +5,46 @@ import Input from '../common/Input'
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
 import Button from '../common/Button';
-import TutorialDataService from '../core/api'
+import TutorialService from '../core/api';
 
-const ModalForm = ({ setActiveModal, handleInputChange, getTodos, tasks }) => {
-    const [todo, setTodo] = useState({
-        title: '',
-        description: '',
-        date: '',
-        user: ''
-    });
-
+const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos }) => {
     const newCommentAnswer = {
-        user: todo.user,
-        title: todo.title,
-        description:todo.description,
-        date: todo.date
-      };
-
-    const onChange = (e) => {
-        const { name, value } = e.target;
-
-        setTodo((previousValue) => {
-            return {
-                ...previousValue,
-                [name]: value,
-            };
-        });
+        user: localStorage.getItem('userId'),
+        title: todos.title,
+        description:todos.description,
+        date: todos.date
     };
 
-
-    // useEffect(() => {
-    //     TutorialDataService.getAllTodo(tasks)
-    //             .then(res => setTodo(res.data))
-    // }, [])
-
     const { registerOptions } = ModalFormConfigs();
-
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onBlur'
     });
 
+    const handleError = (errors) => { console.log(errors); };
 
     const handlePostTodo = () => {
-        TutorialDataService.createTodo(newCommentAnswer).then(() => {
-            console.log('data', newCommentAnswer);
-        })
+        if(todos.id){
+            const data = {
+                title: todos.title,
+                description: todos.description,
+                date: todos.date
+            }
+            TutorialService.editTodo(data, todos.id)
+                setActiveModal(true)
+        }else{
+            TutorialService.createTodo(newCommentAnswer).then(() => {
+                // setActiveModal(true)
+            })
+        }
+        
     }
 
     return (
         <div className={classes.modal}>
-            <form onSubmit={handleSubmit(handlePostTodo)}>
+            <form onSubmit={handleSubmit(handlePostTodo, handleError)}>
                 <div className={classes.title}>
                     <h3>Tasks</h3>
-                    <AiFillCloseCircle onClick={() => setActiveModal(true)} />
+                    <AiFillCloseCircle onClick={()=> setActiveModal(true)}/>
                 </div>
 
                 <div>
@@ -65,8 +52,8 @@ const ModalForm = ({ setActiveModal, handleInputChange, getTodos, tasks }) => {
                         label={"Title"}
                         name={"title"}
                         type={"text"}
-                        onChange={(e) => onChange(e)}
-                        value={todo.title}
+                        onChange={(e) => handleChangeTodoObj(e)}
+                        value={todos.title}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -78,8 +65,8 @@ const ModalForm = ({ setActiveModal, handleInputChange, getTodos, tasks }) => {
                         label={"Description"}
                         name={"description"}
                         type={"text"}
-                        onChange={(e) => onChange(e)}
-                        value={todo.description}
+                        onChange={(e) => handleChangeTodoObj(e)}
+                        value={todos.description}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -91,8 +78,8 @@ const ModalForm = ({ setActiveModal, handleInputChange, getTodos, tasks }) => {
                         label={"Data"}
                         name={"date"}
                         type={"date"}
-                        onChange={(e) => onChange(e)}
-                        value={todo.date}
+                        onChange={(e) => handleChangeTodoObj(e)}
+                        value={todos.date}
                         errors={errors}
                         register={register}
                         options={registerOptions}

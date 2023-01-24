@@ -1,35 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Admin.module.scss'
 import Button from '../../components/common/Button'
 import ModalForm from '../../components/ModalForm';
 import TutorialDataService from '../../components/core/api'
 import TodoBlock from '../../components/TodoBlock';
+import https from '../../components/core/api/https';
 
 const Admin = () => {
   const [activeModal, setActiveModal] = useState(true);
   const [tasks, setTasks] = useState(false);
-  const [todo, setTodo] = useState([]);
+  // const [todo, setTodo] = useState([]);
+  const [todos, setTodos] = useState({
+        id: '',
+        title: '',
+        description: '',
+        date: '',
+        user: ''
+});
 
-  // console.log(localStorage.getItem('userId'));
+const handleChangeTodoObj = (key, value) => {
+  setTodos(old => ({
+      ...old,
+      [key]: value
+  }))
+};
 
-  const getTodos = async () => {
-    await TutorialDataService.getAllTodo()
-        .then(res => setTodo(res.data))
-        .catch(err => {
-          console.log(err);
-        })
-  }
-  // console.log('todo', todo);
+
+  let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
+
+  const getAllTodo = async () => {
+      return await https.get("/todo/",  { headers: header })
+          .then(res => {
+            setTodos(res.data)
+          })
+          .catch(err => {
+              console.log(err);
+          })
+  };
+
+  useEffect(() => {
+    getAllTodo()
+  }, [todos]);
 
   const onClickBtn = () => {
     setActiveModal(false)
   }
-
-
-  // const handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   setTodo({ ...todo, [name]: value });
-  // };
 
 
 
@@ -40,17 +55,17 @@ const Admin = () => {
           <Button onClick={onClickBtn} title="Add todo" />
           <div>{!activeModal &&
             <ModalForm
+              todos={todos}
               tasks={tasks}
               setTasks={setTasks}
-              getTodos={getTodos}
-              // handleInputChange={handleInputChange}
               setActiveModal={setActiveModal}
+              handleChangeTodoObj={handleChangeTodoObj}
             />
           }
           </div>
 
           <div className={classes.content}>
-            <TodoBlock setTasks={setTasks} getTodos={getTodos} todo={todo}/>
+            <TodoBlock setTasks={setTasks} setActiveModal={setActiveModal} todos={todos}/>
           </div>
 
         </div>
