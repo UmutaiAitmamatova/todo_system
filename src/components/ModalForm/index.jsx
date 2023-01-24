@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Button from '../common/Button';
 import TutorialDataService from '../core/api'
 
-const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueTitle, saveTutorial,valueData, getTodo }) => {
+const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueTitle, saveTutorial,valueData, getTodos }) => {
 
     const { registerOptions } = ModalFormConfigs();
 
@@ -17,7 +17,7 @@ const ModalForm = ({ setActiveModal, valueDescription, handleInputChange, valueT
 
 
     const handlePostTodo = (data) => {
-        TutorialDataService.createTodo(data, getTodo).then(() => {
+        TutorialDataService.createTodo(data).then(() => {
             console.log('data', data);
         })
     }

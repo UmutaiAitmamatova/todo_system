@@ -11,10 +11,13 @@ const Admin = () => {
   const [todo, setTodo] = useState([]);
 
   const getTodos = async () => {
-    await TutorialDataService.getTodo()
+    await TutorialDataService.getAllTodo()
         .then(res => setTodo(res))
+        .catch(err => {
+          console.log(err);
+        })
   }
-  console.log('getTodos', getTodos);
+  console.log('todo', todo);
 
   const onClickBtn = () => {
     setActiveModal(false)
