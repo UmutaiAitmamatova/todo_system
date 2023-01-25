@@ -15,32 +15,30 @@ const Admin = () => {
         title: '',
         description: '',
         date: '',
-        user: ''
 });
-
 const handleChangeTodoObj = (key, value) => {
   setTodos(old => ({
       ...old,
       [key]: value
   }))
 };
+//   let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
+//   const getAllTodo = async () => {
+//       return await https.get("/todo/",  { headers: header })
+//           .then(res => {
+//             setTodos(res.data)
+//           })
+//           .catch(err => {
+//               console.log(err);
+//           })
+//   };
+//   useEffect(() => {
+//     getAllTodo(setTodo)
+//   }, []);
 
-
-  let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
-
-  const getAllTodo = async () => {
-      return await https.get("/todo/",  { headers: header })
-          .then(res => {
-            setTodos(res.data)
-          })
-          .catch(err => {
-              console.log(err);
-          })
-  };
-
-  useEffect(() => {
-    getAllTodo()
-  }, [todos]);
+//   React.useEffect(() => {
+//     console.log(!todo);
+// }, [todo]);
 
   const onClickBtn = () => {
     setActiveModal(false)
@@ -55,6 +53,9 @@ const handleChangeTodoObj = (key, value) => {
           <Button onClick={onClickBtn} title="Add todo" />
           <div>{!activeModal &&
             <ModalForm
+              title={todos.title}
+              description={todos.description}
+              date={todos.date}
               todos={todos}
               tasks={tasks}
               setTasks={setTasks}

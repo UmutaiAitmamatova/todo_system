@@ -5,13 +5,13 @@ import { AiFillDelete } from "react-icons/ai";
 import TutorialService from "../core/api";
 import ModalForm from '../ModalForm'
 
-const TodoItem = ({setActiveModal,  data, key, handleChangeCurrentTodo, currentTodo}) => {
-    const [newValue, setNewValue] = useState('');
+const TodoItem = ({setActiveModal,  data, key, handleChangeCurrentTodo, currentTodo, getAllTodo}) => {
+    // const [newValue, setNewValue] = useState('');
     
     const handleEditTodo = (id) => {
         setActiveModal(false)
     }
-    return currentTodo ? <ModalForm/> : (
+    return currentTodo ? <ModalForm userID={data.id} getAllTodo={getAllTodo}/> : (
         <div className={classes.todo_item}>
             <div className={classes.top}>
                 

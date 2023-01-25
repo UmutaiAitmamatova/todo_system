@@ -7,37 +7,43 @@ import { useForm } from 'react-hook-form';
 import Button from '../common/Button';
 import TutorialService from '../core/api';
 
-const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos }) => {
-    const newCommentAnswer = {
-        user: localStorage.getItem('userId'),
-        title: todos.title,
-        description:todos.description,
-        date: todos.date
-    };
+const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, description, title, date, getAllTodo }) => {
+    let userId = localStorage.getItem('userId');
+    // const newCommentAnswer = {
+    //     user: localStorage.getItem('userId'),
+    //     // title: todos.title,
+    //     // description:todos.description,
+    //     // date: todos.date
+    // };
 
     const { registerOptions } = ModalFormConfigs();
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onBlur'
     });
-
     const handleError = (errors) => { console.log(errors); };
-
     const handlePostTodo = () => {
-        if(todos.id){
-            const data = {
-                title: todos.title,
-                description: todos.description,
-                date: todos.date
-            }
-            TutorialService.editTodo(data, todos.id)
-                setActiveModal(true)
-        }else{
-            TutorialService.createTodo(newCommentAnswer).then(() => {
+            TutorialService.createTodo().then(() => {
                 // setActiveModal(true)
             })
-        }
+            
+        // if(userId){
+        //     const data = {
+        //         title: title,
+        //         description: description,
+        //         date: date
+        //     }
+        //     TutorialService.editTodo(data, userId)
+        //         setActiveModal(true)
+        // }else{
+        //     TutorialService.createTodo().then(() => {
+        //         // setActiveModal(true)
+        //     })
+        // }
         
     }
+    const onChangeInputs = (key, value) => {
+        handleChangeTodoObj(key, value)
+    };
 
     return (
         <div className={classes.modal}>
@@ -52,8 +58,8 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos }) => {
                         label={"Title"}
                         name={"title"}
                         type={"text"}
-                        onChange={(e) => handleChangeTodoObj(e)}
-                        value={todos.title}
+                        onChange={(e) => onChangeInputs('title', e.target.value)}
+                        value={todos?.title || ""}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -65,8 +71,8 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos }) => {
                         label={"Description"}
                         name={"description"}
                         type={"text"}
-                        onChange={(e) => handleChangeTodoObj(e)}
-                        value={todos.description}
+                        onChange={(e) => onChangeInputs('description', e.target.value)}
+                        value={todos?.description || ""}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -78,8 +84,8 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos }) => {
                         label={"Data"}
                         name={"date"}
                         type={"date"}
-                        onChange={(e) => handleChangeTodoObj(e)}
-                        value={todos.date}
+                        onChange={(e) => onChangeInputs('date', e.target.value)}
+                        value={todos?.date || ""}
                         errors={errors}
                         register={register}
                         options={registerOptions}
