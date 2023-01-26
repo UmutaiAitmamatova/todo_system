@@ -3,7 +3,7 @@ import https from '../core/api/https';
 import TodoItem from '../TodoItem';
 import classes from './ToDoBlock.module.scss';
 
-const TodoBlock = ({ todos, setActiveModal, setTasks }) => {
+const TodoBlock = ({ activeModal, todos, setActiveModal, setTasks }) => {
     const [todo, setTodo] = useState([]);
     // const [changeId, setChangeId] = useState(0);
 
@@ -25,8 +25,8 @@ const TodoBlock = ({ todos, setActiveModal, setTasks }) => {
         getAllTodo(setTodo)
     }, []);
 
-    React.useEffect(() => {
-        console.log(!todo);
+    useEffect(() => {
+
     }, [todo]);
 
     return (
@@ -37,6 +37,7 @@ const TodoBlock = ({ todos, setActiveModal, setTasks }) => {
                     // handleChangeCurrentTodo={handleChangeCurrentTodo}
                     // currentTodo={changeId === data.id}
                     setActiveModal={setActiveModal}
+                    activeModal={activeModal}
                     setTasks={setTasks}
                     data={data}
                     getAllTodo={getAllTodo}

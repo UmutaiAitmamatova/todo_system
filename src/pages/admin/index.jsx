@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './Admin.module.scss'
 import Button from '../../components/common/Button'
 import ModalForm from '../../components/ModalForm';
 import TutorialDataService from '../../components/core/api'
-import TodoBlock from '../../components/TodoBlock';
+import TodoBlock from '../../components/ToDoBlock';
 import https from '../../components/core/api/https';
 
 const Admin = () => {
-  const [activeModal, setActiveModal] = useState(true);
+  const [activeModal, setActiveModal] = useState(false);
   const [tasks, setTasks] = useState(false);
   // const [todo, setTodo] = useState([]);
   const [todos, setTodos] = useState({
@@ -17,8 +17,10 @@ const Admin = () => {
         date: '',
 });
 const handleChangeTodoObj = (key, value) => {
+  console.log(key, value)
   setTodos(old => ({
       ...old,
+      user: localStorage.getItem('userId'),
       [key]: value
   }))
 };
@@ -60,13 +62,14 @@ const handleChangeTodoObj = (key, value) => {
               tasks={tasks}
               setTasks={setTasks}
               setActiveModal={setActiveModal}
+              activeModal={activeModal}
               handleChangeTodoObj={handleChangeTodoObj}
             />
           }
           </div>
 
           <div className={classes.content}>
-            <TodoBlock setTasks={setTasks} setActiveModal={setActiveModal} todos={todos}/>
+            <TodoBlock setTasks={setTasks} setActiveModal={setActiveModal} activeModal={activeModal} todos={todos}/>
           </div>
 
         </div>

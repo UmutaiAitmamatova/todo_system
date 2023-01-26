@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Button from '../common/Button';
 import TutorialService from '../core/api';
 
-const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, description, title, date, getAllTodo }) => {
+const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, data }) => {
     let userId = localStorage.getItem('userId');
     // const newCommentAnswer = {
     //     user: localStorage.getItem('userId'),
@@ -16,41 +16,45 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, descrip
     //     // date: todos.date
     // };
 
+    const onChangeInputs = (e, key, value) => {
+        // console.log(e)
+        let toEdit = {
+            ...editTodo,
+            [key] : value
+        }
+        setEditTodo(toEdit)
+        handleChangeTodoObj(key, value)
+    };
+
     const { registerOptions } = ModalFormConfigs();
     const { register, handleSubmit, formState: { errors } } = useForm({
         mode: 'onBlur'
     });
     const handleError = (errors) => { console.log(errors); };
     const handlePostTodo = () => {
-            // TutorialService.createTodo().then(() => {
-            //     // setActiveModal(true)
-            // })
-            
-        if(userId){
-            const data = {
-                title: title,
-                description: description,
-                date: date
-            }
-            TutorialService.editTodo(data, userId)
-                setActiveModal(true)
-        }else{
-            TutorialService.createTodo().then(() => {
-                // setActiveModal(true)
+            TutorialService.createTodo(todos).then(() => {
             })
-        }
-        
     }
-    const onChangeInputs = (key, value) => {
-        handleChangeTodoObj(key, value) 
-    };
+    const handlePatchTodo = () => {
+        TutorialService.editTodo(editTodo.id, editTodo).then(() => {
+        })
+    }
+    
+    
+    const [editTodo, setEditTodo] = useState(data)
+    
 
+    console.log(editTodo, '========================')
+
+
+
+    // console.log(data)
     return (
         <div className={classes.modal}>
-            <form onSubmit={handleSubmit(handlePostTodo, handleError)}>
+            <form onSubmit={handleSubmit( (edit ? handlePatchTodo : handlePostTodo), handleError)}>
                 <div className={classes.title}>
                     <h3>Tasks</h3>
-                    <AiFillCloseCircle onClick={()=> setActiveModal(true)}/>
+                    <AiFillCloseCircle onClick={()=> {edit ? setEdit(false) : setActiveModal(true)}}/>
                 </div>
 
                 <div>
@@ -58,8 +62,8 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, descrip
                         label={"Title"}
                         name={"title"}
                         type={"text"}
-                        onChange={(e) => onChangeInputs('title', e.target.value)}
-                        value={todos?.title || ""}
+                        onChange={(e) => onChangeInputs(e, 'title', e.target.value)}
+                        value={edit ? editTodo.title : null}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -71,8 +75,8 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, descrip
                         label={"Description"}
                         name={"description"}
                         type={"text"}
-                        onChange={(e) => onChangeInputs('description', e.target.value)}
-                        value={todos?.description || ""}
+                        onChange={(e) => onChangeInputs(e, 'description', e.target.value)}
+                        value={edit ? editTodo.description : null}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -81,11 +85,11 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, descrip
 
                 <div>
                     <Input
-                        label={"Data"}
+                        label={"Date"}
                         name={"date"}
                         type={"date"}
-                        onChange={(e) => onChangeInputs('date', e.target.value)}
-                        value={todos?.date || ""}
+                        onChange={(e) => onChangeInputs(e, 'date', e.target.value)}
+                        value={edit ? editTodo.date : null}
                         errors={errors}
                         register={register}
                         options={registerOptions}
