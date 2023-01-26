@@ -13,6 +13,7 @@ const Router = () => {
     const locat = useLocation();
     const [state, setstate] = useState(false);
     const navigate = useNavigate();
+    console.log(TutorialService.getUserInfo());
     useEffect(() => {
         if (!TutorialService.getUserInfo()) {
             navigate('auth')
