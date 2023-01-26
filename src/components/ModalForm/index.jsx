@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './ModalForm.module.scss';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import Input from '../common/Input'
@@ -28,8 +28,6 @@ const ModalForm = ({setActiveModal, setEdit, edit, data , getAllTodo}) => {
                 'success'
             )
     }
-
-
 
     const handlePatchTodo = (newData) => {
         const userId = localStorage.getItem('userId')

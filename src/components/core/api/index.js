@@ -1,6 +1,7 @@
 import http from "./https";
 
 const refresh = localStorage.getItem('refreshToken')
+export const user = localStorage.getItem('accessToken')
 const logOut = () => {
   return http.post('/token/refresh/', {refresh})
     .then(res => {

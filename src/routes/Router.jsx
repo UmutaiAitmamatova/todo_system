@@ -1,5 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { NoPage } from "../components";
+import { user } from "../components/core/api";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 
@@ -10,6 +12,12 @@ const Auth = React.lazy(() => import("../pages/auth"));
 const Router = () => {
     const locat = useLocation();
     const [state, setstate] = useState(false);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!user) {
+            navigate('auth')
+        }
+      }, [user])
 
     useEffect(() => {
         if (locat.pathname === "/auth") {
@@ -41,6 +49,8 @@ const Router = () => {
                         <Admin />
                     </React.Suspense>}
                 exact/>
+
+                <Route path="*" element={<NoPage/>} />
 
             </Routes>
             {!state && <Footer/>}
