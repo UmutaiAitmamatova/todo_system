@@ -4,9 +4,10 @@ import Input from "../common/Input";
 import Button from "../common/Button";
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
+import TutorialService from '../core/api';
+import InputAuth from '../common/InputAuth';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -36,18 +37,10 @@ const SignUp = () => {
 
 
 const handleApi = async () => {
-  axios.post('http://todolistapi.pythonanywhere.com/api/users/', {
+  TutorialService.singUp({
     username: user.username,
     email: user.email,
     password: user.password,
-  })
-  .then(res => {
-    localStorage.setItem('accessToken', res.data.access)
-    localStorage.setItem('userId', res.data.id)
-    console.log(res.data);
-  })
-  .catch(err => {
-    console.log(err);
   })
   Swal.fire({
     position: 'center',
@@ -67,7 +60,7 @@ const handleApi = async () => {
         <h2 className={classes.title}>Sign Up</h2>
         <form onSubmit={handleSubmit(handleApi, handleError)}>
           <div>
-          <Input
+          <InputAuth
             label={"userName"}
             name={"username"}
             type={"string"}
@@ -79,7 +72,7 @@ const handleApi = async () => {
           />
           </div>
           <div>
-          <Input
+          <InputAuth
             label={"Email"}
             name={"email"}
             type={"email"}
@@ -91,7 +84,7 @@ const handleApi = async () => {
           />
           </div>
           <div>
-          <Input
+          <InputAuth
             label={"Password"}
             name={"password"}
             type={"password"}

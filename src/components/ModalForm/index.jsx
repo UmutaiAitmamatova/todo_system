@@ -8,20 +8,7 @@ import Button from '../common/Button';
 import TutorialService from '../core/api';
 import Swal from 'sweetalert2';
 
-const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit, edit, data, getAllTodo, todo }) => {
-    const [editTodo, setEditTodo] = useState(data)
-
-    // useEffect(() => {
-        
-    // }, [todo]);
-    const onChangeInputs = (e, key, value) => {
-        let toEdit = {
-            ...editTodo,
-            [key] : value
-        }
-        setEditTodo(toEdit)
-        handleChangeTodoObj(key, value)
-    };
+const ModalForm = ({setActiveModal, setEdit, edit, data , getAllTodo}) => {
 
     const { registerOptions } = ModalFormConfigs();
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -29,10 +16,11 @@ const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit
     });
     const handleError = (errors) => { console.log(errors); };
 
-    const handlePostTodo = () => {
-            TutorialService.createTodo(todos).then(() => {
-                setActiveModal(true)
-                getAll()
+    const handlePostTodo = (newData) => {
+        const userId = localStorage.getItem('userId')
+            TutorialService.createTodo({...newData, user: userId}).then(() => {
+                setActiveModal(false)
+                getAllTodo()
             })
             Swal.fire(
                 'Successfully added new student!',
@@ -41,8 +29,12 @@ const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit
             )
     }
 
-    const handlePatchTodo = () => {
-        TutorialService.editTodo(editTodo.id, editTodo).then(async () => {
+
+
+    const handlePatchTodo = (newData) => {
+        const userId = localStorage.getItem('userId')
+        TutorialService.editTodo(data.id, {...newData, user: userId})
+        .then(async () => {
             setEdit(false)
             await getAllTodo()
         })
@@ -66,8 +58,7 @@ const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit
                         label={"Title"}
                         name={"title"}
                         type={"text"}
-                        onChange={(e) => onChangeInputs(e, 'title', e.target.value)}
-                        value={edit ? editTodo.title : null}
+                        defaultValue={data ? data.title : ''}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -79,8 +70,7 @@ const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit
                         label={"Description"}
                         name={"description"}
                         type={"text"}
-                        onChange={(e) => onChangeInputs(e, 'description', e.target.value)}
-                        value={edit ? editTodo.description : null}
+                        defaultValue={data ? data.description : ''}
                         errors={errors}
                         register={register}
                         options={registerOptions}
@@ -92,8 +82,7 @@ const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit
                         label={"Date"}
                         name={"date"}
                         type={"date"}
-                        onChange={(e) => onChangeInputs(e, 'date', e.target.value)}
-                        value={edit ? editTodo.date : null}
+                        defaultValue={data ? data.date : ''}
                         errors={errors}
                         register={register}
                         options={registerOptions}

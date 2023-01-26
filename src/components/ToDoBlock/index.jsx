@@ -1,31 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import https from '../core/api/https';
+import React from 'react';
 import TodoItem from '../TodoItem';
 import classes from './ToDoBlock.module.scss';
 
-const TodoBlock = ({admin}) => {
-    const [todo, setTodo] = useState([]);
-
-    let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
-    const getAllTodo = async () => {
-        return await https.get("/todo/", { headers: header })
-            .then(res => {
-                setTodo(res.data)
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    };
-    useEffect(() => {
-        getAllTodo()
-    }, []);
-
-    useEffect(() => {
-    }, [todo]);
-
+const TodoBlock = ({admin, getAllTodo, todoList}) => {
     return (
         <div className={classes.todo_block}>
-            {todo && todo.length > 0 ? todo.map((data, index) => {
+            {todoList && todoList.length > 0 ? todoList.map((data, index) => {
                 return <TodoItem
                     key={index}
                     data={data}

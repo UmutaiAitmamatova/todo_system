@@ -12,6 +12,31 @@ const logOut = () => {
     })
 }
 
+const singIn = async (body) => {
+  http.post('/token/', body, { headers: header })
+  .then(res => {
+    localStorage.setItem('accessToken', res.data.access)
+    localStorage.setItem('refreshToken', res.data.refresh)
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+const singUp = async (body) => {
+  http.post('/users/', body, { headers: header })
+  .then(res => {
+    console.log('ress', res);
+    localStorage.setItem('userId', res.data.id)
+    singIn({
+      username: body.username,
+      password: body.password,
+    }).then(res => console.log(res))
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
 const getUserInfo = async () => {
   http.get('/users/get_userinfo/', { headers: header })
     .then(res => {
@@ -73,6 +98,8 @@ const editTodo = async (id, data) => {
   
 
   const TutorialService = {
+    singUp,
+    singIn,
     logOut,
     getAllTodo,
     getTodo,

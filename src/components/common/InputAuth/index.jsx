@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import classes from "./Input.module.scss";
+import React from "react";
+import classes from "./InputAuth.module.scss";
 
-export default function Input({
+
+export default function InputAuth({
     label,
     errors,
     register,
-    defaultValue,
+    onChange,
+    value,
     options,
     name,
     type,
 }) {
-    const [value, setValue] = useState(defaultValue)
     const renderLabel = () => {
         return (
             <>
@@ -18,6 +19,7 @@ export default function Input({
             </>
         );
     };
+
     const renderError = () => {
         return (
             <small className={classes.text_danger}>
@@ -25,6 +27,7 @@ export default function Input({
             </small>
         );
     };
+
     const renderMainInput = () => {
         return (
             <>
@@ -32,8 +35,8 @@ export default function Input({
                     type={type}
                     name={name}
                     {...register(name, options[name])}
-                    defaultValue={defaultValue}
-                    onChange={(e) => {setValue(e.target.value)}}
+                    value={value}
+                    onChange={onChange}
                 />
                 <br />
             </>

@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import classes from './SignIn.module.scss'
-import Input from "../common/Input";
 import Button from "../common/Button";
 import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import TutorialService from '../core/api';
+import InputAuth from '../common/InputAuth';
 
 
 const SignIn = () => {
@@ -33,18 +33,9 @@ const SignIn = () => {
 };
 
 const handleApi = async () => {
-  axios.post('http://todolistapi.pythonanywhere.com/api/token/', {
+  await TutorialService.singIn({
     username: user.username,
     password: user.password,
-  })
-  .then(res => {
-    console.log(res.data);
-    localStorage.setItem('accessToken', res.data.access)
-    localStorage.setItem('refreshToken', res.data.refresh)
-    localStorage.setItem('userId', res.data.id)
-  })
-  .catch(err => {
-    console.log(err);
   })
   Swal.fire({
     position: 'center',
@@ -53,7 +44,7 @@ const handleApi = async () => {
     showConfirmButton: false,
     timer: 1500
 }).then(() => navigate('/')) 
-  // console.log('SignIn');
+
 }
   return (
     <div className={classes.sign_in}>
@@ -61,7 +52,7 @@ const handleApi = async () => {
       <h2 className={classes.title}>Sign In</h2>
       <form onSubmit={handleSubmit(handleApi, handleError)}>
       <div>
-          <Input
+          <InputAuth
             label={"userName"}
             name={"username"}
             type={"string"}
@@ -73,7 +64,7 @@ const handleApi = async () => {
           />
           </div>
           <div>
-          <Input
+          <InputAuth
             label={"Password"}
             name={"password"}
             type={"password"}
@@ -87,7 +78,6 @@ const handleApi = async () => {
           <Button type="Submit" title="Submit"/>
       </form>
       </div>
-      {/* <Link to="/SignUp"><div>Sign Up</div></Link> */}
 
     </div>
   )
