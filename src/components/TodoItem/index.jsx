@@ -6,7 +6,7 @@ import TutorialService from "../core/api";
 import ModalForm from '../ModalForm'
 import Swal from "sweetalert2";
 
-const TodoItem = ({data, getAllTodo}) => {
+const TodoItem = ({data, getAllTodo, admin}) => {
     const [edit, setEdit] = useState(false)
     const handleEditTodo = () => {
         setEdit(true)
@@ -37,8 +37,8 @@ const TodoItem = ({data, getAllTodo}) => {
             <div className={classes.top}>               
                 <div className={classes.title}> <span>Title:</span> <br /> {data.title}</div>
                 <div className={classes.btns}>
-                    <button onClick={() => handleEditTodo(data.id)}><BiEdit/></button>
-                    <button onClick={removeTodos}><AiFillDelete /></button>
+                    {admin && <button onClick={() => handleEditTodo(data.id)}><BiEdit/></button>}
+                    {admin && <button onClick={removeTodos}><AiFillDelete /></button>}
                 </div>
             </div>
             <div className={classes.description}>

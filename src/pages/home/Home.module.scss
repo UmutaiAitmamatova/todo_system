@@ -2,3 +2,16 @@
     color: #fff;
     min-height: calc(100vh - 120px);
 }
+.container{
+    max-width: 60%;
+    margin: 0 auto;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 15px;
+}
+h2{
+    padding-left: 10%;
+}

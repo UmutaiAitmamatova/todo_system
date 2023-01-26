@@ -42,7 +42,6 @@ const handleApi = async () => {
     localStorage.setItem('accessToken', res.data.access)
     localStorage.setItem('refreshToken', res.data.refresh)
     localStorage.setItem('userId', res.data.id)
-    console.log('refresh', localStorage.setItem('userId', res.data.id));
   })
   .catch(err => {
     console.log(err);

@@ -3,7 +3,7 @@ import https from '../core/api/https';
 import TodoItem from '../TodoItem';
 import classes from './ToDoBlock.module.scss';
 
-const TodoBlock = () => {
+const TodoBlock = ({admin}) => {
     const [todo, setTodo] = useState([]);
 
     let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
@@ -30,6 +30,7 @@ const TodoBlock = () => {
                     key={index}
                     data={data}
                     getAllTodo={getAllTodo}
+                    admin={admin}
                 />
             })
                 : <p>not todo</p>}

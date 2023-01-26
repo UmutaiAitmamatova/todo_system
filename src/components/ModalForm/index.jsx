@@ -8,9 +8,12 @@ import Button from '../common/Button';
 import TutorialService from '../core/api';
 import Swal from 'sweetalert2';
 
-const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, data, getAllTodo }) => {
+const ModalForm = ({ getAll, setActiveModal, handleChangeTodoObj, todos, setEdit, edit, data, getAllTodo, todo }) => {
     const [editTodo, setEditTodo] = useState(data)
 
+    // useEffect(() => {
+        
+    // }, [todo]);
     const onChangeInputs = (e, key, value) => {
         let toEdit = {
             ...editTodo,
@@ -26,20 +29,19 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, 
     });
     const handleError = (errors) => { console.log(errors); };
 
-    const handlePostTodo = async (e) => {
-        await TutorialService.createTodo(todos).then(() => {
+    const handlePostTodo = () => {
+            TutorialService.createTodo(todos).then(() => {
+                setActiveModal(true)
+                getAll()
             })
-            setActiveModal(true)
-            getAllTodo()
             Swal.fire(
                 'Successfully added new student!',
                 '',
                 'success'
             )
-            e.stopPropagation()
     }
 
-    const handlePatchTodo = (e) => {
+    const handlePatchTodo = () => {
         TutorialService.editTodo(editTodo.id, editTodo).then(async () => {
             setEdit(false)
             await getAllTodo()
@@ -49,12 +51,11 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, 
             '',
             'success'
         )
-        e.stopPropagation()
     }
 
     return (
         <div className={classes.modal}>
-            <form onSubmit={handleSubmit( (edit ? handlePatchTodo : handlePostTodo), handleError)}>
+            <form onSubmit={handleSubmit((edit ? handlePatchTodo : handlePostTodo), handleError)}>
                 <div className={classes.title}>
                     <h3>Tasks</h3>
                     <AiFillCloseCircle onClick={()=> {edit ? setEdit(false) : setActiveModal(false)}}/>
