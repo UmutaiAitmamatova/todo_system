@@ -40,7 +40,7 @@ useEffect(() => {
           </div>
 
           <div className={classes.content}>
-            <TodoBlock admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/>
+            {/* <TodoBlock admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/> */}
           </div>
         </div>
       </div>
