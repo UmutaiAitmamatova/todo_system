@@ -20,6 +20,7 @@ const singIn = async (body) => {
   .then(res => {
     localStorage.setItem('accessToken', res.data.access)
     localStorage.setItem('refreshToken', res.data.refresh)
+    getUserInfo()
   })
   .catch(err => {
     console.log(err);
