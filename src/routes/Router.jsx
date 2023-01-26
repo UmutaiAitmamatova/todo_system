@@ -1,9 +1,9 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import NoPage from "../components/NoPage";
+import { NoPage } from "../components";
+import { user } from "../components/core/api";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
-import TutorialService from "../components/core/api";
 
 const Home = React.lazy(() => import("../pages/home"));
 const Admin = React.lazy(() => import("../pages/admin")); 
@@ -14,10 +14,10 @@ const Router = () => {
     const [state, setstate] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
-        if (!TutorialService.getUserInfo()) {
+        if (!user) {
             navigate('auth')
         }
-    }, [TutorialService.getUserInfo()])
+      }, [user])
 
     useEffect(() => {
         if (locat.pathname === "/auth") {
@@ -30,6 +30,7 @@ const Router = () => {
     return (
         <>
             {!state && <Header/>}
+
             <Routes>
                 <Route path="auth" element={
                     <React.Suspense fallback={<>Loading...</>}>

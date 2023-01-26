@@ -6,12 +6,12 @@ import TutorialService from "../core/api";
 import ModalForm from '../ModalForm'
 import Swal from "sweetalert2";
 
-function TodoItem ({data, getAllTodo, admin}){
+const TodoItem = ({data, getAllTodo, admin}) => {
     const [edit, setEdit] = useState(false)
     const handleEditTodo = () => {
         setEdit(true)
     }
-    const removeTodos = () => {
+    const removeTodos = (e) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You cannot return data!",
@@ -29,6 +29,7 @@ function TodoItem ({data, getAllTodo, admin}){
                     })
             }
         })
+        e.stopPropagation()
     }
 
     return edit ? <ModalForm data={data} setEdit={setEdit} edit={edit} getAllTodo={getAllTodo}/> : (

@@ -13,12 +13,14 @@ const logOut = () => {
     })
 }
 
-const singIn = async (body) => {
+const singIn = async (body, nav) => {
   http.post('/token/', body)
     .then(res => {
       localStorage.setItem('accessToken', res.data.access)
       localStorage.setItem('refreshToken', res.data.refresh)
-      getUserInfo()
+      getUserInfo(res.data.access)
+      nav()
+      console.log('yes')
     })
     .catch(err => {
       console.log(err);
@@ -39,8 +41,8 @@ const singUp = async (body) => {
     })
 }
 
-const getUserInfo = async () => {
-  http.get('/users/get_userinfo/', { headers: header })
+const getUserInfo = async (token) => {
+  http.get('/users/get_userinfo/', { headers: { 'Authorization': `Bearer ${token}` } })
     .then(res => {
       localStorage.setItem('userId', res.data.id)
       console.log('', res.data);
