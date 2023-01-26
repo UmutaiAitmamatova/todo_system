@@ -18,7 +18,7 @@ const Router = () => {
         if (!TutorialService.getUserInfo()) {
             navigate('auth')
         }
-    }, [!TutorialService.getUserInfo()])
+    }, [TutorialService.getUserInfo()])
 
     useEffect(() => {
         if (locat.pathname === "/auth") {
