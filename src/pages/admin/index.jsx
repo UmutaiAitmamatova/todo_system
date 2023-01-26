@@ -3,7 +3,7 @@ import classes from './Admin.module.scss';
 import Button from '../../components/common/Button'
 import ModalForm from '../../components/ModalForm';
 import https from '../../components/core/api/https';
-import TodoBlock from '../../components/ToDoBlock';
+import BlockTodo from '../../components/BlockTodo';
 
 const Admin = () => {
   const [activeModal, setActiveModal] = useState(false);
@@ -37,9 +37,8 @@ useEffect(() => {
             />
           }
           </div>
-
           <div className={classes.content}>
-            <TodoBlock admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/>
+            <BlockTodo admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/>
           </div>
         </div>
       </div>

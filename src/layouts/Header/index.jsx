@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '../../components';
+import Button from '../../components/common/Button';
 import classes from './Header.module.scss';
-import TutorialService from '../../components/core/api';
 
 
 const Header = () => {

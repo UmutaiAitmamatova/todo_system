@@ -6,7 +6,7 @@ import TutorialService from "../core/api";
 import ModalForm from '../ModalForm'
 import Swal from "sweetalert2";
 
-const TodoItem = ({data, getAllTodo, admin}) => {
+function TodoItem ({data, getAllTodo, admin}){
     const [edit, setEdit] = useState(false)
     const handleEditTodo = () => {
         setEdit(true)

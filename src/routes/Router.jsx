@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { NoPage } from "../components";
+import NoPage from "../components/NoPage";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import TutorialService from "../components/core/api";
@@ -30,7 +30,6 @@ const Router = () => {
     return (
         <>
             {!state && <Header/>}
-
             <Routes>
                 <Route path="auth" element={
                     <React.Suspense fallback={<>Loading...</>}>
