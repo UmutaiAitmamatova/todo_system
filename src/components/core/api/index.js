@@ -18,9 +18,7 @@ const singIn = async (body, nav) => {
     .then(res => {
       localStorage.setItem('accessToken', res.data.access)
       localStorage.setItem('refreshToken', res.data.refresh)
-      getUserInfo(res.data.access)
-      nav()
-      window.location.reload();
+      getUserInfo(res.data.access, nav)
       console.log('yes')
     })
     .catch(err => {
@@ -42,10 +40,12 @@ const singUp = async (body) => {
     })
 }
 
-const getUserInfo = async (token) => {
+const getUserInfo = async (token, nav) => {
   http.get('/users/get_userinfo/', { headers: { 'Authorization': `Bearer ${token}` } })
     .then(res => {
       localStorage.setItem('userId', res.data.id)
+      nav()
+      window.location.reload();
       console.log('', res.data);
     })
     .catch(err => {
@@ -115,3 +115,4 @@ const TutorialService = {
 };
 
 export default TutorialService;
+
