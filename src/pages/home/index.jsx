@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Home.module.scss'
-// import TodoBlock from '../../components/TodoBlock';
 import https from '../../components/core/api/https';
+import TodoBlock from '../../components/ToDoBlock';
 
 const Home = () => {
   const [todoList, setTodoList] = useState([]);
@@ -24,7 +24,7 @@ const Home = () => {
       <div className={classes.container}>
           <h2>Tasks</h2>
           <div className={classes.content}>
-            {/* <TodoBlock setTodoList={setTodoList} todoList={todoList} getAllTodo={getAllTodo}/> */}
+            <TodoBlock setTodoList={setTodoList} todoList={todoList} getAllTodo={getAllTodo}/>
           </div>
       </div>
     </div>

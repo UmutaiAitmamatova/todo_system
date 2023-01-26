@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Admin.module.scss';
-// import Button from '../../components/common/Button'.
-// import ModalForm from '../../components/ModalForm';
-// import TodoBlock from '../../components/TodoBlock';
+import Button from '../../components/common/Button'
+import ModalForm from '../../components/ModalForm';
 import https from '../../components/core/api/https';
-import { ModalForm, TodoBlock, Button } from '../../components'
+import TodoBlock from '../../components/ToDoBlock';
 
 const Admin = () => {
   const [activeModal, setActiveModal] = useState(false);
@@ -40,7 +39,7 @@ useEffect(() => {
           </div>
 
           <div className={classes.content}>
-            {/* <TodoBlock admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/> */}
+            <TodoBlock admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/>
           </div>
         </div>
       </div>
