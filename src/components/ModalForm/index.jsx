@@ -22,27 +22,27 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, userID, descrip
     });
     const handleError = (errors) => { console.log(errors); };
     const handlePostTodo = () => {
+            // TutorialService.createTodo().then(() => {
+            //     // setActiveModal(true)
+            // })
+            
+        if(userId){
+            const data = {
+                title: title,
+                description: description,
+                date: date
+            }
+            TutorialService.editTodo(data, userId)
+                setActiveModal(true)
+        }else{
             TutorialService.createTodo().then(() => {
                 // setActiveModal(true)
             })
-            
-        // if(userId){
-        //     const data = {
-        //         title: title,
-        //         description: description,
-        //         date: date
-        //     }
-        //     TutorialService.editTodo(data, userId)
-        //         setActiveModal(true)
-        // }else{
-        //     TutorialService.createTodo().then(() => {
-        //         // setActiveModal(true)
-        //     })
-        // }
+        }
         
     }
     const onChangeInputs = (key, value) => {
-        handleChangeTodoObj(key, value)
+        handleChangeTodoObj(key, value) 
     };
 
     return (

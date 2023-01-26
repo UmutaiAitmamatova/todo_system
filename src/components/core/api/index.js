@@ -84,7 +84,7 @@ const getAllTodo = async () => {
 
   
 const editTodo = async (id, data) => {
-  return await http.patch(`/todo/${id}`, data, { headers: header })
+  return await http.put(`/todo/${id}`, data, { headers: header })
     .then(res => {
       console.log(res.data);
       console.log('res', header);

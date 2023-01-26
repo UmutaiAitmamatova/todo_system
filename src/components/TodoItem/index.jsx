@@ -8,8 +8,9 @@ import ModalForm from '../ModalForm'
 const TodoItem = ({setActiveModal,  data, key, handleChangeCurrentTodo, currentTodo, getAllTodo}) => {
     // const [newValue, setNewValue] = useState('');
     
-    const handleEditTodo = (id) => {
-        setActiveModal(false)
+    const handleEditTodo = () => {
+        return <ModalForm/>
+        // setActiveModal(false)
     }
     return currentTodo ? <ModalForm userID={data.id} getAllTodo={getAllTodo}/> : (
         <div className={classes.todo_item}>
