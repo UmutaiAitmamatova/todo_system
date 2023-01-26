@@ -49,7 +49,6 @@ const handleApi = async () => {
     showConfirmButton: false,
     timer: 1500
 }).then(() => navigate('/')) 
-  // console.log('SignUp');
 }
 
   return (

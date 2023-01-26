@@ -8,7 +8,7 @@ import Button from '../common/Button';
 import TutorialService from '../core/api';
 import Swal from 'sweetalert2';
 
-const ModalForm = ({setActiveModal, setEdit, edit, data , getAllTodo}) => {
+const ModalForm = ({ setActiveModal, setEdit, edit, data, getAllTodo }) => {
 
     const { registerOptions } = ModalFormConfigs();
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -18,24 +18,24 @@ const ModalForm = ({setActiveModal, setEdit, edit, data , getAllTodo}) => {
 
     const handlePostTodo = (newData) => {
         const userId = localStorage.getItem('userId')
-            TutorialService.createTodo({...newData, user: userId}).then(() => {
-                setActiveModal(false)
-                getAllTodo()
-            })
-            Swal.fire(
-                'Successfully added new student!',
-                '',
-                'success'
-            )
+        TutorialService.createTodo({ ...newData, user: userId }).then(() => {
+            setActiveModal(false)
+            getAllTodo()
+        })
+        Swal.fire(
+            'Successfully added new student!',
+            '',
+            'success'
+        )
     }
 
     const handlePatchTodo = (newData) => {
         const userId = localStorage.getItem('userId')
-        TutorialService.editTodo(data.id, {...newData, user: userId})
-        .then(async () => {
-            setEdit(false)
-            await getAllTodo()
-        })
+        TutorialService.editTodo(data.id, { ...newData, user: userId })
+            .then(async () => {
+                setEdit(false)
+                await getAllTodo()
+            })
         Swal.fire(
             'Successfully updated student!',
             '',
@@ -48,7 +48,7 @@ const ModalForm = ({setActiveModal, setEdit, edit, data , getAllTodo}) => {
             <form onSubmit={handleSubmit((edit ? handlePatchTodo : handlePostTodo), handleError)}>
                 <div className={classes.title}>
                     <h3>Tasks</h3>
-                    <AiFillCloseCircle onClick={()=> {edit ? setEdit(false) : setActiveModal(false)}}/>
+                    <AiFillCloseCircle onClick={() => { edit ? setEdit(false) : setActiveModal(false) }} />
                 </div>
 
                 <div>
@@ -86,8 +86,8 @@ const ModalForm = ({setActiveModal, setEdit, edit, data , getAllTodo}) => {
                         options={registerOptions}
                     />
                 </div>
-                
-                <Button type='submit' title="Submit"/>
+
+                <Button type='submit' title="Submit" />
             </form>
         </div>
     );

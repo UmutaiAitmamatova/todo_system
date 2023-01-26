@@ -1,7 +1,9 @@
 import http from "./https";
 
+let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
+
+
 const refresh = localStorage.getItem('refreshToken')
-export const user = localStorage.getItem('accessToken')
 const logOut = () => {
   return http.post('/token/refresh/', {refresh})
     .then(res => {
@@ -11,7 +13,7 @@ const logOut = () => {
     .catch(err => {
       console.log(err);
     })
-}
+};
 
 const singIn = async (body) => {
   http.post('/token/', body, { headers: header })
@@ -22,11 +24,11 @@ const singIn = async (body) => {
   .catch(err => {
     console.log(err);
   })
-}
+};
+
 const singUp = async (body) => {
-  http.post('/users/', body, { headers: header })
+  http.post('/users/', body)
   .then(res => {
-    console.log('ress', res);
     localStorage.setItem('userId', res.data.id)
     singIn({
       username: body.username,
@@ -36,20 +38,17 @@ const singUp = async (body) => {
   .catch(err => {
     console.log(err);
   })
-}
+};
 
 const getUserInfo = async () => {
   http.get('/users/get_userinfo/', { headers: header })
     .then(res => {
       localStorage.setItem('userId', res.data.id)
-      console.log('', res.data);
     })
     .catch(err => {
       console.log(err);
     })
-}
-
-let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
+};
 
 const getAllTodo = async () => {
     return await http.get("/todo/",  { headers: header })

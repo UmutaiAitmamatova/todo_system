@@ -1,20 +1,18 @@
 import React from "react";
-import SignIn from '../../components/signIn'
-import SignUp from '../../components/singUp'
+import SignIn from '../../components/signIn';
+import SignUp from '../../components/singUp';
+import classes from './Auth.module.scss';
+
 
 const Auth = () => {
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "space-around",
-                maxWidth: "1000px",
-                margin: "0 auto",
-                paddingTop: "30px",
-            }}
-        >
-            <SignIn />
-            <SignUp />
+        <div className={classes.auth}>
+            <div className={classes.container}>
+                <div className={classes.block}>
+                    <SignIn />
+                    <SignUp />
+                </div>
+            </div>
         </div>
     );
 };

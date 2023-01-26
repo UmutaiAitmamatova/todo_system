@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import TutorialService from '../core/api';
 import InputAuth from '../common/InputAuth';
 
-
 const SignIn = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({

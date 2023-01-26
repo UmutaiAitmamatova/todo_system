@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import classes from './Home.module.scss'
-import TodoBlock from '../../components/ToDoBlock';
+import TodoBlock from '../../components/TodoBlock';
 import https from '../../components/core/api/https';
 
 const Home = () => {

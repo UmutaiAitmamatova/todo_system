@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoItem from '../TodoItem';
-import classes from './ToDoBlock.module.scss';
+import classes from './TodoBlock.module.scss';
 
 const TodoBlock = ({admin, getAllTodo, todoList}) => {
     return (
@@ -16,6 +16,6 @@ const TodoBlock = ({admin, getAllTodo, todoList}) => {
                 : <p>not todo</p>}
         </div>
     )
-}
+};
 
-export default TodoBlock
+export default TodoBlock;

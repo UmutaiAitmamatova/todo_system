@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import classes from './Admin.module.scss'
+import classes from './Admin.module.scss';
 import Button from '../../components/common/Button'
 import ModalForm from '../../components/ModalForm';
-import TodoBlock from '../../components/ToDoBlock';
+import TodoBlock from '../../components/TodoBlock';
 import https from '../../components/core/api/https';
 
 const Admin = () => {
   const [activeModal, setActiveModal] = useState(false);
   const [todoList, setTodoList] = useState([]);
 
-let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
+let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` };
 const getAllTodo = async () => {
     return await https.get("/todo/", { headers: header })
         .then(res => {
-            setTodoList(res.data)
+            setTodoList(res.data);
         })
         .catch(err => {
             console.log(err);
         })
 };
 useEffect(() => {
-  getAllTodo()
+  getAllTodo();
 }, []);
 
   return (
@@ -41,11 +41,10 @@ useEffect(() => {
           <div className={classes.content}>
             <TodoBlock admin setTodoList={setTodoList} todoList={todoList}  getAllTodo={getAllTodo}/>
           </div>
-
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Admin;
