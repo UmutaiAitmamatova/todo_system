@@ -62,7 +62,6 @@ const ModalForm = ({ setActiveModal, setEdit, edit, data, getAllTodo }) => {
                         options={registerOptions}
                     />
                 </div>
-
                 <div>
                     <Input
                         label={"Description"}
@@ -74,7 +73,6 @@ const ModalForm = ({ setActiveModal, setEdit, edit, data, getAllTodo }) => {
                         options={registerOptions}
                     />
                 </div>
-
                 <div>
                     <Input
                         label={"Date"}

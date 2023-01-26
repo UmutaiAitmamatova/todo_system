@@ -11,7 +11,7 @@ const TodoItem = ({data, getAllTodo, admin}) => {
     const handleEditTodo = () => {
         setEdit(true)
     }
-    const removeTodos = (e) => {
+    const removeTodos = () => {
         Swal.fire({
             title: "Are you sure?",
             text: "You cannot return data!",
@@ -29,7 +29,6 @@ const TodoItem = ({data, getAllTodo, admin}) => {
                     })
             }
         })
-        e.stopPropagation()
     }
 
     return edit ? <ModalForm data={data} setEdit={setEdit} edit={edit} getAllTodo={getAllTodo}/> : (

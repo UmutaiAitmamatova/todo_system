@@ -3,7 +3,6 @@ import SignIn from '../../components/signIn';
 import SignUp from '../../components/singUp';
 import classes from './Auth.module.scss';
 
-
 const Auth = () => {
     return (
         <div className={classes.auth}>
