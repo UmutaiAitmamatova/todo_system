@@ -20,6 +20,7 @@ const singIn = async (body, nav) => {
       localStorage.setItem('refreshToken', res.data.refresh)
       getUserInfo(res.data.access)
       nav()
+      window.location.reload();
       console.log('yes')
     })
     .catch(err => {
