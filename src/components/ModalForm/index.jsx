@@ -6,18 +6,12 @@ import { ModalFormConfigs } from './configs';
 import { useForm } from 'react-hook-form';
 import Button from '../common/Button';
 import TutorialService from '../core/api';
+import Swal from 'sweetalert2';
 
-const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, data }) => {
-    let userId = localStorage.getItem('userId');
-    // const newCommentAnswer = {
-    //     user: localStorage.getItem('userId'),
-    //     // title: todos.title,
-    //     // description:todos.description,
-    //     // date: todos.date
-    // };
+const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, data, getAllTodo }) => {
+    const [editTodo, setEditTodo] = useState(data)
 
     const onChangeInputs = (e, key, value) => {
-        // console.log(e)
         let toEdit = {
             ...editTodo,
             [key] : value
@@ -31,30 +25,39 @@ const ModalForm = ({ setActiveModal, handleChangeTodoObj, todos, setEdit, edit, 
         mode: 'onBlur'
     });
     const handleError = (errors) => { console.log(errors); };
-    const handlePostTodo = () => {
-            TutorialService.createTodo(todos).then(() => {
+
+    const handlePostTodo = async (e) => {
+        await TutorialService.createTodo(todos).then(() => {
             })
+            setActiveModal(true)
+            getAllTodo()
+            Swal.fire(
+                'Successfully added new student!',
+                '',
+                'success'
+            )
+            e.stopPropagation()
     }
-    const handlePatchTodo = () => {
-        TutorialService.editTodo(editTodo.id, editTodo).then(() => {
+
+    const handlePatchTodo = (e) => {
+        TutorialService.editTodo(editTodo.id, editTodo).then(async () => {
+            setEdit(false)
+            await getAllTodo()
         })
+        Swal.fire(
+            'Successfully updated student!',
+            '',
+            'success'
+        )
+        e.stopPropagation()
     }
-    
-    
-    const [editTodo, setEditTodo] = useState(data)
-    
 
-    console.log(editTodo, '========================')
-
-
-
-    // console.log(data)
     return (
         <div className={classes.modal}>
             <form onSubmit={handleSubmit( (edit ? handlePatchTodo : handlePostTodo), handleError)}>
                 <div className={classes.title}>
                     <h3>Tasks</h3>
-                    <AiFillCloseCircle onClick={()=> {edit ? setEdit(false) : setActiveModal(true)}}/>
+                    <AiFillCloseCircle onClick={()=> {edit ? setEdit(false) : setActiveModal(false)}}/>
                 </div>
 
                 <div>

@@ -3,13 +3,8 @@ import https from '../core/api/https';
 import TodoItem from '../TodoItem';
 import classes from './ToDoBlock.module.scss';
 
-const TodoBlock = ({ activeModal, todos, setActiveModal, setTasks }) => {
+const TodoBlock = () => {
     const [todo, setTodo] = useState([]);
-    // const [changeId, setChangeId] = useState(0);
-
-    // const handleChangeCurrentTodo = (id) => {
-    //     setChangeId(id)
-    // }
 
     let header = { 'Authorization': `Bearer ${localStorage.getItem("accessToken")}` }
     const getAllTodo = async () => {
@@ -22,11 +17,10 @@ const TodoBlock = ({ activeModal, todos, setActiveModal, setTasks }) => {
             })
     };
     useEffect(() => {
-        getAllTodo(setTodo)
+        getAllTodo()
     }, []);
 
     useEffect(() => {
-
     }, [todo]);
 
     return (
@@ -34,11 +28,6 @@ const TodoBlock = ({ activeModal, todos, setActiveModal, setTasks }) => {
             {todo && todo.length > 0 ? todo.map((data, index) => {
                 return <TodoItem
                     key={index}
-                    // handleChangeCurrentTodo={handleChangeCurrentTodo}
-                    // currentTodo={changeId === data.id}
-                    setActiveModal={setActiveModal}
-                    activeModal={activeModal}
-                    setTasks={setTasks}
                     data={data}
                     getAllTodo={getAllTodo}
                 />
